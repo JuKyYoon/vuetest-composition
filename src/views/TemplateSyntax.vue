@@ -83,23 +83,24 @@
     </div>
 </template>
 
-<script>
-export default {
-    data() {
-        return {
-            idText : "ID",
-            jsTest: "{{ cnt + 1 }}",
-            cnt: 2,
-            rawHtml: "<p style='color:red'>RED</p>",
-            blueId: "blue-id",
-            isChecked: true,
-            attrs: {
-                id: "blue-id",
-                class: "test-class"
-            }
-        }
-    }
-}
+<script setup>
+import { ref } from 'vue'
+
+// 템플릿 안에서는 value 안 써줘도 OK 
+// 여기선 .value 써야함
+const idText = ref("ID")
+const jsTest = ref("{{ cnt + 1 }}")
+const cnt = ref(2)
+const rawHtml = ref("<p style='color:red'>RED</p>")
+const blueId = ref("blue-id")
+const isChecked = ref(true)
+const attrs = ref({
+    id: "blue-id",
+    class: "test-class"
+})
+
+// 컴포넌트 ref엑세스? setup 함수 이용?
+
 
 </script>
 

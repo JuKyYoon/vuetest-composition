@@ -1,23 +1,35 @@
 <template>
     <div>
         <h3>반응형 설정</h3>
-        <p>options api에서는 data이용해서 설정</p>
+        <p>composition api에서는 ref()이용해서 설정</p>
         <p> 이렇게 {{ cnt }}</p>
-        <p>단, 처음 인스턴스 만들때만 추가된다. 그래서 null이나 undefined 같은 값이라도 넣어야 한다.</p>
-        <p> data에 안 넣고 this에 바로 값 추가 가능하지만, 추후에 값 업데이트 X </p>
-        <p> 접두사로 $나 ... 사용하지 말기</p>
+        <p> 템플릿 밖에서는 .value 써야 하지만 안에서는 괜찮괜찮 </p>
+    </div>
+
+    <div>
+        <h3>script setup </h3>
+        <p>setup() 대신에 script setup써랴</p>
+    </div>
+
+    <div>
+        <h3>why ref</h3>
+        <p>컴포넌트 처음 렌더링 시 모든 ref 추적</p>
+        <p>이후에는 변경된 ref를 추적하는 모든 컴포넌트 재렌더링 트리거</p>
+        <p>.VALUE 속성은 vue에게 ref를 감시할 기회를 준다. 내부적으로 getter로 추적하고, setter로 트리거 수행한다.</p>
     </div>
 
     <div>
         <h3>메소드 선언</h3>
         <p> {{ cnt }} <button @click="increase">up</button></p>
-        <p>화살표 함수 쓰면 this 접근 불가! 그래서 funciton() { } 이 형태로 만들기</p>
+        <p>비동기처리는 async function 함수이름() {} </p>
     </div>
 
     <div>
         <h3>깊은 반응형</h3>
         <p>객체나 배열 값 변경해도 감지함</p>
-        <p> {{ this.obj1.obj2.cnt }}  <button @click="increase2">up2</button></p>
+        <p> {{ obj1.obj2.cnt }}  <button @click="increase2">up2</button></p>
+        <p>기본값이 아니면 reactive() 통해 반응형 프로기로 전환</p>
+        <p>얕은 참조는 .value만 추적</p>
     </div>
 
     <div>
@@ -27,37 +39,43 @@
     </div>
 
     <div>
+        <h3>reactive()</h3>
+        <p>ref와 달리 reactive는 객체를 반응형으로 만든다.</p>
+        <p>{{ re.cnt }}</p>
+        <button @click="re.cnt++">++</button>
+        <p>이 객체는 자바스크립트 프록시이다. vue가 모든 엑세스를 가로챌 수 있다. </p>
+        <P>얕은참조랑 유사한 shallowReactive() 있다.</P>
+        <p>프록시이므로 reactive로 재정의되면 원본과 다르다! </p>
+        <p></p>
+    </div>
+
+    <div>
         <h3>메소드 동적 생성</h3>
         <p> <a href="https://ko.vuejs.org/guide/essentials/reactivity-fundamentals.html#stateful-methods">몰라</a> </p>
     </div>
 </template>
 
-<script>
-import { nextTick } from 'vue'
-export default {
-    data() {
-        return {
-            cnt: 4,
-            obj1: {
-                obj2: {
-                    cnt: 3
-                }
-            }
-        }
-    },
-    methods: {
-        async increase() {
-            this.cnt+=2
-            await nextTick()
-            console.log("update fin")
-        },
-        increase2() {
-            this.obj1.obj2.cnt++;
-        }
-    },
-    mounted() {
-        // 메소드 호출 가능
+<script setup>
+import { nextTick, ref, reactive } from 'vue'
+
+const cnt = ref(4)
+const obj1 = ref({
+    obj2: {
+        cnt: 3
     }
+})
+
+const re = reactive({cnt: -5})
+
+async function increase() {
+    // this 안 써도 ok
+    cnt.value+=2
+    await nextTick()
+    console.log("update fin")
+}
+
+function increase2() {
+    obj1.value.obj2.cnt++;
 }
 </script>
 
