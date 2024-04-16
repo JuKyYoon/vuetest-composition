@@ -93,29 +93,25 @@
     </div>
 </template>
 
-<script>
-export default {
-    data() {
-        return {
-            msg: "msg",
-            checkedData: [],
-            testCheckBox : [1,2,3,4],
-            radioData: undefined,
-            testRadio : [11,22,33],
-            selectedData : '',
-            selectedDatas : [],
-            testSelect: [111,222,333],
-            toggle1: '',
-            toggle2: '',
-            yes: '네',
-            no: '아니오',
-            first: 'first',
-            second: 'second',
-            pick: 'second',
-            selected: ''
-        }
-    }
-}
+<script setup>
+import {ref} from 'vue'
+const msg=ref( "msg")
+const checkedData=ref( [])
+const testCheckBox =ref( [1,2,3,4])
+const radioData=ref( undefined)
+const testRadio =ref( [11,22,33])
+const selectedData =ref( '')
+const selectedDatas =ref( [])
+const testSelect=ref( [111,222,333])
+const toggle1=ref( '')
+const toggle2=ref( '')
+const yes=ref( '네')
+const no=ref( '아니오')
+const first=ref( 'first')
+const second=ref( 'second')
+const pick=ref( 'second')
+const selected=ref( '')
+
 </script>
 
 <style scoped>

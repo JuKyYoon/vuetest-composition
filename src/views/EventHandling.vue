@@ -46,6 +46,7 @@
         <h3>입력키 수신어</h3>
         <p> {{ inputData1 }}</p>
         <p>입력키 이름을 케밥 케이스로 변환해서 사용 할 수 있음</p>
+        <p>단 input에서만 가능하다!!!!!!!!!!!!!!!!</p>
         <div>
             입력키 별칭​ <br/>
             .enter<br/>
@@ -77,31 +78,25 @@
     </div>
 </template>
 
-<script>
+<script setup>
+import { ref } from 'vue'
 
-export default {
-    data() {
-        return {
-            cnt: 0,
-            log: "",
-            eventData1: '<a @click.stop="doThis"></a>',
-            inputData1: '<input @keyup.enter="submit" />',
-            inputData2: '<input @keyup.alt.enter="clear" />',
-            inputData3: '<div @click.ctrl="doSomething">시작하기</div>'
-        }
-    },
-    methods: {
-        hello(event) {
-            alert("asdf")
-            if(event) {this.log = event.target.tagName}
-        },
-        greet(txt) {
-            alert(txt)
-        },
-        clickWithShift() {
-            alert("you can")
-        }
-    }
+const cnt = ref(0)
+const log = ref("")
+const eventData1 = '<a @click.stop="doThis"></a>'
+const inputData1 = '<input @keyup.enter="submit" />'
+const inputData2 = '<input @keyup.alt.enter="clear" />'
+const inputData3 = '<div @click.ctrl="doSomething">시작하기</div>'
+
+function hello(event) {
+  alert("asdf")
+  if(event) {log.value = event.target.tagName}
+}
+function greet(txt) {
+    alert(txt)
+}
+function clickWithShift() {
+    alert("you can")
 }
 </script>
 

@@ -55,9 +55,11 @@
 
         <div> {{ vIfForEx }}</div>
 
-        <template v-for="(car, index) in cars" :key="index">
-            <li v-if="car.capacity > 4">{{ car.type }} : cap = {{ car.capacity }}</li>
-        </template>
+        <ul>
+          <template v-for="(car, index) in cars" :key="index">
+              <li v-if="car.capacity > 4">{{ car.type }} : cap = {{ car.capacity }}</li>
+          </template>
+        </ul>
     </div>
 
     <div>
@@ -72,6 +74,9 @@
         <h3>컴포넌트에 v-for 사용하기</h3>
         <p>컴포넌트에 v-for쓴다고 해서 아이템 자동 전달 X. 왜냐 의존적 관계 되기 때문.</p>
         <list-component-vue v-for="car in cars" :key="car.type" :car="car"></list-component-vue>
+        <p><strong>dom에 직접 작성하면 kebal케이스 써야함</strong></p>
+        <ListComponentVue v-for="car in cars" :key="car.type" :car="car" />
+
     </div>
 
     <div>
@@ -92,79 +97,73 @@
 
 </template>
 
-<script>
+<script setup>
 import ListComponentVue from '@/components/ListComponent.vue'
-export default {
-    components: {
-        ListComponentVue
-    },
-    data() {
-        return {
-            cars: [
-                {
-                  "color": "purple",
-                  "type": "minivan",
-                  "capacity": 7
-                },
-                {
-                  "color": "blue",
-                  "type": "SUV",
-                  "capacity": 5
-                },
-                {
-                  "color": "red",
-                  "type": "sedan",
-                  "capacity": 5
-                },
-                {
-                  "color": "green",
-                  "type": "hatchback",
-                  "capacity": 5
-                },
-                {
-                  "color": "yellow",
-                  "type": "convertible",
-                  "capacity": 4
-                },
-                {
-                  "color": "black",
-                  "type": "pickup truck",
-                  "capacity": 5
-                },
-                {
-                  "color": "white",
-                  "type": "van",
-                  "capacity": 8
-                },
-                {
-                  "color": "silver",
-                  "type": "coupe",
-                  "capacity": 4
-                },
-                {
-                  "color": "orange",
-                  "type": "sports car",
-                  "capacity": 2
-                },
-                {
-                  "color": "gray",
-                  "type": "station wagon",
-                  "capacity": 5
-                }
-            ],
-            
-            book: {
-                title: "제에에엥목",
-                author: "저어어어어아자",
-                price: 30000
-            },
-            vIfForEx: `<template v-for="(car, index) in cars" :key="index">\n
+import { ref, reactive} from 'vue'
+
+const cars = ref(
+[
+  {
+    "color": "purple",
+    "type": "minivan",
+    "capacity": 7
+  },
+  {
+    "color": "blue",
+    "type": "SUV",
+    "capacity": 5
+  },
+  {
+    "color": "red",
+    "type": "sedan",
+    "capacity": 5
+  },
+  {
+    "color": "green",
+    "type": "hatchback",
+    "capacity": 5
+  },
+  {
+    "color": "yellow",
+    "type": "convertible",
+    "capacity": 4
+  },
+  {
+    "color": "black",
+    "type": "pickup truck",
+    "capacity": 5
+  },
+  {
+    "color": "white",
+    "type": "van",
+    "capacity": 8
+  },
+  {
+    "color": "silver",
+    "type": "coupe",
+    "capacity": 4
+  },
+  {
+    "color": "orange",
+    "type": "sports car",
+    "capacity": 2
+  },
+  {
+    "color": "gray",
+    "type": "station wagon",
+    "capacity": 5
+  }
+])
+const book = ref({
+  title: "제에에엥목",
+  author: "저어어어어아자",
+  price: 30000
+})
+
+const vIfForEx = `<template v-for="(car, index) in cars" :key="index">\n
             <li v-if="car.capacity > 4">{{ car.type }} : cap = {{ car.capacity }}</li>\n
                 </template>`
 
-        }
-    }
-}
 </script>
 
 <style scoped>

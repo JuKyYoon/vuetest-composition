@@ -9,9 +9,12 @@
         <RouterLink to="/list">리스트렌더링</RouterLink>  
         <RouterLink to="/event-handling">이벤트 핸들링</RouterLink>
         <RouterLink to="/forms">Form입력 바인딩</RouterLink>
+        <RouterLink to="/registering-lifecycle-hooks">생명주기 훅 등록하기</RouterLink>
         <RouterLink to="/watchers">감시자</RouterLink>
-
-
+        <RouterLink to="/template-refs">템플릿 참조</RouterLink>
+        <RouterLink to="/component-basics">컴포넌트 기초</RouterLink>
+        <RouterLink to="/component-registration">컴포넌트 등록/Props</RouterLink>
+        <RouterLink to="/compoennt-event">컴포넌트 이벤트/Props</RouterLink>
     </nav>
 </template>
 
@@ -21,6 +24,7 @@ nav {
   align-content: center;
   margin: 10px;
   /* border: 3px solid black; */
+
 }
 
 nav > a {
@@ -29,6 +33,9 @@ nav > a {
     border : 2px solid black;
     border-radius: 10px;
     text-decoration-line: none;
+    display: inline-block;
+    margin: 1px;
+
 }
 nav > a:hover {
   background-color: aqua;

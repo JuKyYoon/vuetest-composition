@@ -1,7 +1,7 @@
 <template>
     <div>
         <h3>기본 사용</h3>
-        <p>  {{ this.cnt }} > 5 : {{ checkCnt }}  <button @click="increase">up</button></p>
+        <p>  {{ cnt }} > 5 : {{ checkCnt }}  <button @click="increase">up</button></p>
     </div>
 
     <div>
@@ -12,28 +12,46 @@
     <div>
         <h3>수정</h3>
         <p>computed는 getter이지만 setter도 사용 가능하다. 단 사용하는 건 좋지 않다.</p>
+        <p>{{  c }}</p>
+        <button @click="update">computed update</button>
+        <p>adf</p>
     </div>
 </template>
 
-<script>
-export default {
-    data() {
-        return {
-            cnt: 1
-        }
-    },
-    methods: {
-        increase() {
-            this.cnt+=1
-        }
-    },
-    computed: {
-        checkCnt() {
-            if(this.cnt > 5) {return "YES"}
-            else{return "NO"}
-        }
-    }
+<script setup>
+import {ref,computed} from 'vue';
+
+const cnt = ref(2)
+
+function increase() {
+    cnt.value++;
 }
+
+const checkCnt = computed(() => {
+    if(cnt > 5) {return "YEs"}
+    else{return "no"}
+})
+
+
+// 수정
+const a = ref(9)
+const b = ref(8)
+
+
+const c = computed({
+    get() {
+        return a.value + b.value 
+    },
+    set(newVal) {
+        a.value = newVal + 1
+        b.value = newVal
+    }
+})
+
+function update() {
+    c.value = 5
+}
+
 </script>
 
 <style scoped>

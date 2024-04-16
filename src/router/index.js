@@ -50,11 +50,33 @@ const router = createRouter({
       component: () => import('@/views/Forms.vue')
     },
     {
+      path: '/registering-lifecycle-hooks',
+      name: 'registering-lifecycle-hooks',
+      component: () => import('@/views/RegisteringLifecycleHooks.vue')
+    },
+    {
       path: '/watchers',
       name: 'watchers',
       component: () => import('@/views/Watchers.vue')
     },
-
+    {
+      path: '/template-refs',
+      name: 'template-refs',
+      component: () => import('@/views/TemplateRefs.vue')
+    }, {
+      path: '/component-basics',
+      name: 'component-basics',
+      component: () => import('@/views/ComponentBasics.vue')
+    }, {
+      path: '/component-registration',
+      name: '/compoennt-registration',
+      component: () => import('@/views/ComponentReg.vue')
+    }, {
+      path: '/component-event',
+      name: '/compoennt-event',
+      component: () => import('@/views/ComponentEvent.vue')
+    }
+    
   ]
 })
 

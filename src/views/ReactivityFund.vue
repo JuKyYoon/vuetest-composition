@@ -28,7 +28,7 @@
         <h3>깊은 반응형</h3>
         <p>객체나 배열 값 변경해도 감지함</p>
         <p> {{ obj1.obj2.cnt }}  <button @click="increase2">up2</button></p>
-        <p>기본값이 아니면 reactive() 통해 반응형 프로기로 전환</p>
+        <p>기본값이 아니면 reactive() 통해 반응형 프록시로 전환</p>
         <p>얕은 참조는 .value만 추적</p>
     </div>
 
@@ -50,6 +50,44 @@
     </div>
 
     <div>
+        <h3>reactive 제한사항항</h3>
+        <p>1. 객체, 배열, map, set 등의 컬렉션 유형에만 사용 가능. 기본 유형 사용 불가</p>
+        <p>2. 항상 동일한 참조 유지해야 함.</p>
+        <p>만약 반응형 객체의 속성을 다른 변수에 할당하거나, 함수에 할당하면 연결 끊어짐.</p>
+    </div>
+
+    <div>
+        <h3 style="background-color: yellow;">ref() 를 써라</h3>
+        <p>reactive()의 제한사항을 해결! -> 어떠한 유형의 데이터라도 반응형으로 재정의한다.</p>
+        <p>ref함수는 받은 인자를 ref객체에 매핑 후 반환</p>
+        <p>객체라면, 객체 전체가 반응형이고, 자동으로 .value를 reactive로 변환한다.</p>
+    </div>
+
+
+    <div>
+        <h3>ref 언래핑</h3>
+        <p>템플릿 안에서는 언래핑 되므로 .value써줄 필요 없다.</p>
+        <p>단, ref가 최상위 프로퍼티인 경우에만 적용.</p>
+        <p>const obj = {foo : ref(1)} 은 X</p>
+        <p>const { foo } = obj 라고 해야 된다. 이 때는 foo가 최상위 프로퍼티가 되므로 표현식 사용 가능. {{ foo + 1 }} = 4</p>
+        <p>ref가 객체의 속성으로 접근하거나 변경되면 자동 언래핑. 일반 속성처럼 사용 가능 (value 쓰면X.) </p>
+        <p>새로운 ref할당되면 이전 ref는 대체된다.</p>
+    </div>
+
+    <div>
+        <h3>개인적 의견</h3>
+        <p>객체 일부분만 반응형 만들고싶으면 REF쓰는데</p>
+        <P>객체 전체를 그냥 반응형 만들고 싶으면 reactive로 감싸는게 사용하기 편하다</P>
+    </div>
+
+    <div>
+        <h3>배열 및 컬렉션 ref 언래핑</h3>
+        <p>객체랑 달리 언래핑 X. value써줘야함.</p>
+    </div>
+    <div>
+
+    </div>
+    <div>
         <h3>메소드 동적 생성</h3>
         <p> <a href="https://ko.vuejs.org/guide/essentials/reactivity-fundamentals.html#stateful-methods">몰라</a> </p>
     </div>
@@ -57,6 +95,17 @@
 
 <script setup>
 import { nextTick, ref, reactive } from 'vue'
+
+const obj = { foo : ref(3)}
+const { foo } = obj
+
+const def = ref(77)
+const abc = reactive({
+    def
+})
+console.log(abc.def) // 77 자동 래핑되어 value 안써도 된다.
+
+
 
 const cnt = ref(4)
 const obj1 = ref({

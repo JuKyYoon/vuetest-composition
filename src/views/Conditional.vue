@@ -46,29 +46,23 @@
     </div>
 </template>
 
-<script>
-export default {
-    data() {
-        return {
-            firstCondition: true,
-            secondValue : 0,
-            thirdCondition: true,
-            vShow: true,
-        }
-    },
-    methods: {
-        toggleFirst() {
-            this.firstCondition = !this.firstCondition
-        },
-        toggleSecond() {
-            this.secondValue += 1
-            this.secondValue %= 4
-        },
-    },
-    computed: {
+<script setup>
+import {ref, reactive, computed} from 'vue'
 
-    }
+const firstCondition = ref(true)
+const secondValue = ref(0)
+const thirdCondition = ref(true)
+const vShow = ref(true)
+
+const toggleFirst = () => {
+    firstCondition.value = !firstCondition.value
 }
+
+const toggleSecond = () => {
+    secondValue.value +=1
+    secondValue.value %= 4
+}
+
 
 </script>
 
